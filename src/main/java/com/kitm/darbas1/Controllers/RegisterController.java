@@ -1,0 +1,65 @@
+package com.kitm.darbas1.Controllers;
+
+import com.kitm.darbas1.Models.Model;
+import com.kitm.darbas1.Utilities.AlertUtility;
+import com.kitm.darbas1.Utilities.UserUtility;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class RegisterController implements Initializable {
+    public TextField user_name_field;
+    public PasswordField password_field;
+    public PasswordField repeatPasswor_field;
+    public Button register_btn;
+    public Hyperlink register_link;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources)
+    {
+        register_btn.setOnAction(actionEvent -> onRegister());
+        register_link.setOnAction(actionEvent -> OnLogin());
+    }
+
+    public void OnLogin()
+    {
+        Stage stage = (Stage) register_link.getScene().getWindow();
+
+        Model.getInstance().getViewFactory().showLoginWindow();
+
+        Model.getInstance().getViewFactory().closeStage(stage);
+    }
+
+    public void onRegister()
+    {
+        Stage stage = (Stage) register_btn.getScene().getWindow();
+
+        //Check if password match
+
+        if(!UserUtility.doPasswordsMatch(password_field.getText(), repeatPasswor_field.getText()))
+        {
+            AlertUtility.displayError("Nesutampa slaptažodžiaia");
+        }
+        else {
+
+            if (user_name_field.getText() == "" || password_field.getText() == "")
+            {
+                AlertUtility.displayError("Vardas arba slaptažodis yra tuščias");
+            }
+            else{
+                Model.getInstance().createUser(user_name_field.getText(), password_field.getText());
+
+                AlertUtility.displayInformation("Vartotojas sekmingai sukurtas. Prasome prisijungti");
+
+                Model.getInstance().getViewFactory().showLoginWindow();
+
+                Model.getInstance().getViewFactory().closeStage(stage);
+            }
+
+        }
+
+    }
+}
