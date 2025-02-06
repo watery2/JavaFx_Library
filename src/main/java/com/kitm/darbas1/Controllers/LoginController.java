@@ -1,6 +1,7 @@
 package com.kitm.darbas1.Controllers;
 
 import com.kitm.darbas1.Models.Model;
+import com.kitm.darbas1.Utilities.AlertUtility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -36,8 +37,24 @@ public class LoginController implements Initializable {
 
     public void onLogin(){
         Stage stage = (Stage) register_link.getScene().getWindow();
-        Model.getInstance().getViewFactory().showMainWindow();
-        Model.getInstance().getViewFactory().closeStage(stage);
+//        Model.getInstance().getViewFactory().showMainWindow();
+
+        //Check cred
+        Model.getInstance().checkCredentials(user_name_field.getText(), password_field.getText());
+
+        //If login succes, open dashboard
+
+        if (Model.getInstance().getLoginSuccessFlag())
+        {
+            Model.getInstance().getViewFactory().showMainWindow();
+            Model.getInstance().getViewFactory().closeStage(stage);
+        }
+        else{
+            user_name_field.setText("");
+            password_field.setText("");
+            AlertUtility.displayError("Neteisingi prisijungimo duomenys");
+        }
+
     }
 
     /*

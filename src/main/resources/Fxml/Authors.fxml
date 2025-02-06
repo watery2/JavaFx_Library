@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="700.0" prefWidth="860.0" styleClass="clients_container" stylesheets="@../Styles/authors.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kitm.darbas1.Controllers.AuthorsController">
+   <children>
+      <Text layoutX="409.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Autoriai" />
+      <Button fx:id="add_author_btn" layoutX="397.0" layoutY="130.0" mnemonicParsing="false" text="Pridėti autorių" />
+      <TableView fx:id="authors_table" layoutX="20.0" layoutY="332.0" prefHeight="200.0" prefWidth="819.0">
+        <columns>
+          <TableColumn fx:id="col_ID" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="col_firstName" prefWidth="75.0" text="Vardas" />
+            <TableColumn fx:id="col_lastName" prefWidth="75.0" text="Pavardė" />
+            <TableColumn fx:id="col_email" prefWidth="75.0" text="El. paštas" />
+            <TableColumn fx:id="col_city" prefWidth="75.0" text="Miestas" />
+        </columns>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem fx:id="remove" mnemonicParsing="false" text="Šaltinis" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </TableView>
+   </children>
+</AnchorPane>

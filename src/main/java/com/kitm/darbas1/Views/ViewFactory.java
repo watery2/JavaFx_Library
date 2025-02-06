@@ -13,6 +13,10 @@ public class ViewFactory {
 
     private final ObjectProperty<MenuItems> userSelectedMenuItem;
     private AnchorPane dashboard;
+    private AnchorPane authorsView;
+    private AnchorPane createAuthorView;
+    private AnchorPane bookView;
+    private AnchorPane addBookView;
 
     public ViewFactory(){
         this.userSelectedMenuItem = new SimpleObjectProperty<>();
@@ -75,7 +79,79 @@ public class ViewFactory {
         createStage(loader);
     }
 
-    /*
+    /**
+     * Load and return authors view
+     *
+     * @return authorView
+     */
+
+    public AnchorPane getAuthorsView()
+    {
+        if(authorsView == null)
+        {
+            try
+            {
+                authorsView = new FXMLLoader(getClass().getResource("/Fxml/Authors.fxml")).load();
+            }catch (Exception e)
+            {
+                System.out.println(e);
+            }
+        }
+
+        return authorsView;
+    }
+
+    public AnchorPane getCreateAuthorView()
+    {
+        if(createAuthorView == null)
+        {
+            try
+            {
+                createAuthorView = new FXMLLoader(getClass().getResource("/Fxml/CreateAuthor.fxml")).load();
+            }catch (Exception e)
+            {
+                System.out.println(e);
+            }
+        }
+
+        return createAuthorView;
+    }
+
+    public AnchorPane getBookView()
+    {
+        if (bookView == null)
+        {
+            try
+            {
+                bookView = new FXMLLoader(getClass().getResource("/Fxml/Books.fxml")).load();
+            }
+            catch (Exception e)
+            {
+                System.out.println(e);
+            }
+        }
+
+        return bookView;
+    }
+
+    public AnchorPane getAddBookView()
+    {
+        if (addBookView == null)
+        {
+            try
+            {
+                addBookView = new FXMLLoader(getClass().getResource("/Fxml/AddBook.fxml")).load();
+            }
+            catch (Exception e)
+            {
+                System.out.println(e);
+            }
+        }
+
+        return addBookView;
+    }
+
+    /**
     * Create and display new stage.
     * @param loader the FXML loader instance. Load fxml file and create scene
     */

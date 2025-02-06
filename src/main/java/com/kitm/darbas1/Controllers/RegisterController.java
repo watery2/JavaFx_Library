@@ -39,13 +39,18 @@ public class RegisterController implements Initializable {
 
         //Check if password match
 
-        if(!UserUtility.doPasswordsMatch(password_field.getText(), repeatPasswor_field.getText()))
+        if(Model.getInstance().isUserExist(user_name_field.getText()))
+        {
+            AlertUtility.displayError("Vartotojas tokiu vardu sitemoje jau registruotas");
+            emptyFields();
+        }
+        else if(!UserUtility.doPasswordsMatch(password_field.getText(), repeatPasswor_field.getText()))
         {
             AlertUtility.displayError("Nesutampa slaptažodžiaia");
         }
         else {
 
-            if (user_name_field.getText() == "" || password_field.getText() == "")
+            if (user_name_field.getText().isEmpty()  || password_field.getText().isEmpty())
             {
                 AlertUtility.displayError("Vardas arba slaptažodis yra tuščias");
             }
@@ -61,5 +66,16 @@ public class RegisterController implements Initializable {
 
         }
 
+    }
+
+    /**
+     * Empty from fields
+     */
+
+    public void emptyFields()
+    {
+        user_name_field.setText("");
+        password_field.setText("");
+        repeatPasswor_field.setText("");
     }
 }
