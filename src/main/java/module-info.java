@@ -2,6 +2,7 @@ module com.kitm.darbas1 {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires org.slf4j;
 
 
     opens com.kitm.darbas1 to javafx.fxml;

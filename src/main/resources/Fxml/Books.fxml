@@ -32,5 +32,6 @@
             </ContextMenu>
          </contextMenu>
       </TableView>
+      <Button fx:id="refresh" layoutX="20.0" layoutY="288.0" mnemonicParsing="false" text="Atnaujinti" />
    </children>
 </AnchorPane>

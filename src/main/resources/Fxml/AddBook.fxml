@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -26,7 +27,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kaina" />
             <TextField fx:id="field_price" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Autorius:" />
-            <TextField fx:id="field_Author" />
+            <ChoiceBox fx:id="Autoriai" prefHeight="25.0" prefWidth="591.0" />
             <Button fx:id="create_Book_btn" mnemonicParsing="false" text="Sukurti" />
          </children>
       </VBox>
