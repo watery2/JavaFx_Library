@@ -15,6 +15,8 @@ public class MenuController implements Initializable {
     public Text current_user_text;
     public Button authors_btn;
     public Button book_btn;
+    public Button reader_btn;
+    public Button BookAcc_btn;
 
 
     @Override
@@ -30,6 +32,8 @@ public class MenuController implements Initializable {
         logout_btn.setOnAction(event -> onLogout());
         authors_btn.setOnAction(event -> onAuthors());
         book_btn.setOnAction(event -> onBooks());
+        reader_btn.setOnAction(event -> onReader());
+        BookAcc_btn.setOnAction(event -> onBookAcc());
     }
 
     /**
@@ -44,6 +48,16 @@ public class MenuController implements Initializable {
     public void onBooks()
     {
         Model.getInstance().getViewFactory().getUserSelectedMenuItem().set(MenuItems.BOOKS);
+    }
+
+    public void onReader()
+    {
+        Model.getInstance().getViewFactory().getUserSelectedMenuItem().set(MenuItems.READERS);
+    }
+
+    public void onBookAcc()
+    {
+        Model.getInstance().getViewFactory().getUserSelectedMenuItem().set(MenuItems.BOOK_ACCOUNTING);
     }
 
     /**

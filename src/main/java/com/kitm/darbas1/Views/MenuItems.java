@@ -5,4 +5,8 @@ public enum MenuItems {
     CREATE_AUTHOR,
     BOOKS,
     ADD_BOOK,
+    READERS,
+    CREATE_READER,
+    BOOK_ACCOUNTING,
+    GIVE_BOOK,
 }

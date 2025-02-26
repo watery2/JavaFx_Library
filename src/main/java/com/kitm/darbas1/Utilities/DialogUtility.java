@@ -1,13 +1,12 @@
 package com.kitm.darbas1.Utilities;
 
-import com.kitm.darbas1.Models.Author;
-import com.kitm.darbas1.Models.Book;
-import com.kitm.darbas1.Models.Model;
+import com.kitm.darbas1.Models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +54,89 @@ public class DialogUtility {
             }
 
             return author;
+        });
+
+        return dialog.showAndWait();
+    }
+
+    public static Optional<BookAcc> showGiveBackBookDialog(BookAcc bookAcc)
+    {
+        Dialog<BookAcc> dialog = new Dialog();
+        dialog.setTitle("Gražinti");
+        dialog.setHeaderText("Įveskite gražinimo datą");
+
+        ButtonType saveButtonType = new ButtonType("Issaugoti", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        DatePicker datePicker = new DatePicker(LocalDate.now());
+
+        grid.add(new Label("Gražinimo data:"), 0, 0);
+        grid.add(datePicker, 1, 0);
+
+        dialog.getDialogPane().setContent(grid);
+
+        dialog.setResultConverter(dialogButton -> {
+            if(dialogButton == saveButtonType){
+                bookAcc.setGivenBackDate(datePicker.getValue().toString());
+                bookAcc.setStatusInt(0);
+            }
+
+            return bookAcc;
+        });
+
+        return dialog.showAndWait();
+    }
+
+    public static Optional<Reader> showEditReaderDialog(Reader reader){
+        Dialog<Reader> dialog = new Dialog();
+        dialog.setTitle("Redaguoti skaitytoja");
+        dialog.setHeaderText("Redaguokite pasirinkto skaitytojo duomenis");
+
+        ButtonType saveButtonType = new ButtonType("Issaugoti", ButtonBar.ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        TextField firstNameField = new TextField(reader.getFirstName());
+        TextField lastNameField = new TextField(reader.getLastName());
+        TextField emailField = new TextField(reader.getEmail());
+        TextField cityField = new TextField(reader.getCity());
+
+        grid.add(new Label("Vardas:"), 0, 0);
+        grid.add(firstNameField, 1, 0);
+        grid.add(new Label("Pavarde:"), 0, 1);
+        grid.add(lastNameField, 1, 1);
+        grid.add(new Label("El. pastas:"), 0, 2);
+        grid.add(emailField, 1, 2);
+        grid.add(new Label("Miestas:"), 0, 3);
+        grid.add(cityField, 1, 3);
+
+        dialog.getDialogPane().setContent(grid);
+
+        dialog.setResultConverter(dialogButton -> {
+            if(dialogButton == saveButtonType){
+
+                if (firstNameField.getText().trim().isEmpty() || lastNameField.getText().trim().isEmpty() || emailField.getText().trim().isEmpty() || cityField.getText().trim().isEmpty())
+                {
+                    AlertUtility.displayError("Tuščias laukas");
+                }
+                else
+                {
+                    reader.setFirstName(firstNameField.getText().trim());
+                    reader.setLastName(lastNameField.getText().trim());
+                    reader.setEmail(emailField.getText().trim());
+                    reader.setCity(cityField.getText().trim());
+
+                }
+            }
+
+            return reader;
         });
 
         return dialog.showAndWait();

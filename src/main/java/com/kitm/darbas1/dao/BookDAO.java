@@ -26,12 +26,21 @@ public class BookDAO{
         this.conn = conn;
     }
 
-    public Object findById(int id) {
+    public Book findById(int id) {
+        List<Book> books = findAll();
+
+        for (Book i : books)
+        {
+            if (i.getId() == id)
+            {
+                return i;
+            }
+        }
         return null;
     }
 
     public void create(String ISBN, String Name, String Category, String Description, int PageNumber, String ReleaseDate, int Price, int AuthorID) {
-        String sql = "INSERT INTO Books(ISBN, Name, Category, Description, PageNumber, ReleaseDate, Price, AuthorID, UserID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Books(ISBN, Name, Category, Description, PageNumber, ReleaseDate, Price, AuthorID, UserID, Taken) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         int userID = Model.getInstance().getLoggedUserId();
 
@@ -45,6 +54,8 @@ public class BookDAO{
             stmt.setInt(7, Price);
             stmt.setInt(8, AuthorID);
             stmt.setInt(9, userID);
+            // 0 = not taken,  1 = taken
+            stmt.setInt(10, 0);
 
             stmt.executeUpdate();
         }catch (SQLException e)
@@ -61,7 +72,7 @@ public class BookDAO{
 
         Book book = (Book) entity;
 
-        String sql = "UPDATE Books SET ISBN = ?, Name = ?, Category = ?, Description = ?, PageNumber = ?, ReleaseDate = ?, Price = ?, AuthorID = ? WHERE id = ?";
+        String sql = "UPDATE Books SET ISBN = ?, Name = ?, Category = ?, Description = ?, PageNumber = ?, ReleaseDate = ?, Price = ?, AuthorID = ?, Taken = ? WHERE id = ?";
 
         try(PreparedStatement stmt = this.conn.prepareStatement(sql)) {
             stmt.setString(1, book.getISBN());
@@ -73,6 +84,7 @@ public class BookDAO{
             stmt.setInt(7, book.getPrice());
             stmt.setInt(8, book.getAuthorID());
             stmt.setInt(9, book.getId());
+            stmt.setInt(10, book.getTaken());
 
             stmt.executeUpdate();
 
@@ -105,9 +117,9 @@ public class BookDAO{
         return List.of();
     }
 
-    public ObservableList findAll() {
+    public ObservableList<Book> findAll() {
         ObservableList<Book> books = FXCollections.observableArrayList();
-        String sql = "SELECT id, ISBN, Name, Category, Description, PageNumber, ReleaseDate, Price, AuthorID FROM Books";
+        String sql = "SELECT id, ISBN, Name, Category, Description, PageNumber, ReleaseDate, Price, AuthorID, Taken FROM Books";
 
         try(PreparedStatement stmt = this.conn.prepareStatement(sql)){
             ResultSet resultSet = stmt.executeQuery();
@@ -123,8 +135,9 @@ public class BookDAO{
                 String ReleaseDate = resultSet.getString("ReleaseDate");
                 int Price = resultSet.getInt("Price");
                 int AuthorID = resultSet.getInt("AuthorID");
+                int Taken = resultSet.getInt("Taken");
 
-                Book book = new Book(id, ISBN, Name, Category, Description, PageNumber, ReleaseDate, Price, AuthorID);
+                Book book = new Book(id, ISBN, Name, Category, Description, PageNumber, ReleaseDate, Price, AuthorID, Taken);
                 books.add(book);
             }
         }catch (SQLException e){
@@ -132,5 +145,22 @@ public class BookDAO{
         }
 
         return books;
+    }
+
+    public void setTakenStatus(int id, int status)
+    {
+        String sql = "UPDATE Books SET Taken = ? WHERE id = ?";
+
+        try(PreparedStatement stmt = this.conn.prepareStatement(sql))
+        {
+            stmt.setInt(1, status);
+            stmt.setInt(2, id);
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e)
+        {
+            logger.severe("Error seting taken status for book " + e);
+        }
     }
 }

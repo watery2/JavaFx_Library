@@ -5,7 +5,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="250.0" stylesheets="@../Styles/menu.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kitm.darbas1.Controllers.MenuController">
    <children>
       <AnchorPane prefHeight="700.0" prefWidth="230.0" styleClass="left_container">
@@ -21,6 +20,8 @@
                   <Button fx:id="book_btn" mnemonicParsing="false" text="Knygos" />
                   <Button fx:id="authors_btn" mnemonicParsing="false" text="Autoriai" />
                   <Button mnemonicParsing="false" text="Ataskaitos" />
+                  <Button fx:id="reader_btn" mnemonicParsing="false" text="Skaitytojai" />
+                  <Button fx:id="BookAcc_btn" mnemonicParsing="false" text="Knygos apskaita" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Prisijungės vartotojas:" />
                   <Text fx:id="current_user_text" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
                   <Button fx:id="logout_btn" mnemonicParsing="false" styleClass="alt_navigation_button" text="Atsijungti" />

@@ -95,22 +95,22 @@ public class AuthorsDAO implements GenericDAO{
     @Override
     public void delete(int id) {
 
-//        String sql = "DELETE FROM Books WHERE AuthorID = ?";
-//        try(PreparedStatement stmt = this.conn.prepareStatement(sql)){
-//            stmt.setInt(1, id);
-//            int rowsAffected = stmt.executeUpdate();
-//            if (rowsAffected > 0){
-//                logger.info("Book with AuthorID " + id + " was deleted successfully");
-//            }
-//            else {
-//                logger.warning("No Book found with AuthorID " + id);
-//            }
-//        } catch (SQLException e) {
-//            logger.severe("Error deleting book with AuthorID: " + id + ": " + e.getMessage());
-//            e.printStackTrace();
-//        }
+        String sql = "DELETE FROM Books WHERE AuthorID = ?";
+        try(PreparedStatement stmt = this.conn.prepareStatement(sql)){
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0){
+                logger.info("Book with AuthorID " + id + " was deleted successfully");
+            }
+            else {
+                logger.warning("No Book found with AuthorID " + id);
+            }
+        } catch (SQLException e) {
+            logger.severe("Error deleting book with AuthorID: " + id + ": " + e.getMessage());
+            e.printStackTrace();
+        }
 
-        String sql = "DELETE FROM authors WHERE id = ?";
+        sql = "DELETE FROM authors WHERE id = ?";
         try(PreparedStatement stmt2 = this.conn.prepareStatement(sql)){
             stmt2.setInt(1, id);
             int rowsAffected = stmt2.executeUpdate();

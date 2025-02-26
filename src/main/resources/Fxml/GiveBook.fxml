@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="700.0" prefWidth="860.0" styleClass="create_client_container" stylesheets="@../Styles/createAuthor.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kitm.darbas1.Controllers.GiveBook">
+   <children>
+      <Text layoutX="358.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="payee_address_lbl" text="Išduoti knygą" x="34.0" y="19.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
+      <VBox layoutX="21.0" layoutY="46.0" prefHeight="500.0" prefWidth="600.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="246.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Knyga:" />
+            <ChoiceBox fx:id="Books" prefHeight="25.0" prefWidth="591.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Skaitytojas:" />
+            <ChoiceBox fx:id="Readers" prefHeight="25.0" prefWidth="591.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gražinimo data" />
+            <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="362.0" />
+            <Button fx:id="create_Book_btn" mnemonicParsing="false" text="Sukurti" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

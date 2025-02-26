@@ -16,8 +16,9 @@ public class Book {
     private IntegerProperty Price;
     private IntegerProperty AuthorID;
     private StringProperty AuthorName;
+    private IntegerProperty Taken;
 
-    public Book(int id, String ISBN, String name, String category, String description, int pageNumber, String releaseDate, int price, int authorID) {
+    public Book(int id, String ISBN, String name, String category, String description, int pageNumber, String releaseDate, int price, int authorID, int Taken) {
         this.id = new SimpleIntegerProperty(id);
         this.ISBN = new SimpleStringProperty(ISBN);
         this.Name = new SimpleStringProperty(name);
@@ -29,6 +30,7 @@ public class Book {
         this.AuthorID = new SimpleIntegerProperty(authorID);
         Author author = Model.getInstance().getAuthorsById(authorID);
         this.AuthorName = new SimpleStringProperty((author.getFirstName() + " " + author.getLastName()));
+        this.Taken = new SimpleIntegerProperty(Taken);
     }
 
     public int getId() {
@@ -149,5 +151,17 @@ public class Book {
 
     public void setAuthorName(String authorName) {
         this.AuthorName.set(authorName);
+    }
+
+    public int getTaken() {
+        return Taken.get();
+    }
+
+    public IntegerProperty takenProperty() {
+        return Taken;
+    }
+
+    public void setTaken(int taken) {
+        this.Taken.set(taken);
     }
 }

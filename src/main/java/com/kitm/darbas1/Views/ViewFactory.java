@@ -17,6 +17,10 @@ public class ViewFactory {
     private AnchorPane createAuthorView;
     private AnchorPane bookView;
     private AnchorPane addBookView;
+    private AnchorPane readerView;
+    private AnchorPane createReaderView;
+    private AnchorPane bookAccView;
+    private AnchorPane giveBookView;
 
     public ViewFactory(){
         this.userSelectedMenuItem = new SimpleObjectProperty<>();
@@ -87,8 +91,8 @@ public class ViewFactory {
 
     public AnchorPane getAuthorsView()
     {
-        if(authorsView == null)
-        {
+        //if(authorsView == null)
+        //{
             try
             {
                 authorsView = new FXMLLoader(getClass().getResource("/Fxml/Authors.fxml")).load();
@@ -96,7 +100,7 @@ public class ViewFactory {
             {
                 System.out.println(e);
             }
-        }
+        //}
 
         return authorsView;
     }
@@ -119,8 +123,8 @@ public class ViewFactory {
 
     public AnchorPane getBookView()
     {
-        if (bookView == null)
-        {
+        //if (bookView == null)
+        //{
             try
             {
                 bookView = new FXMLLoader(getClass().getResource("/Fxml/Books.fxml")).load();
@@ -129,7 +133,7 @@ public class ViewFactory {
             {
                 System.out.println(e);
             }
-        }
+        //}
 
         return bookView;
     }
@@ -149,6 +153,66 @@ public class ViewFactory {
         }
 
         return addBookView;
+    }
+
+    public AnchorPane getReadersView()
+    {
+
+        try
+        {
+            readerView = new FXMLLoader(getClass().getResource("/Fxml/Readers.fxml")).load();
+        }catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+
+        return readerView;
+    }
+
+    public AnchorPane getCreateReaderView()
+    {
+        if (createReaderView == null)
+        {
+            try
+            {
+                createReaderView = new FXMLLoader(getClass().getResource("/Fxml/CreateReader.fxml")).load();
+            }
+            catch (Exception e)
+            {
+                System.out.println(e);
+            }
+        }
+
+        return createReaderView;
+    }
+
+    public AnchorPane getBookAccView()
+    {
+
+        try
+        {
+            bookAccView = new FXMLLoader(getClass().getResource("/Fxml/BookAcc.fxml")).load();
+        }catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+        return bookAccView;
+    }
+
+    public AnchorPane getGiveBookView()
+    {
+
+        try
+        {
+            giveBookView = new FXMLLoader(getClass().getResource("/Fxml/GiveBook.fxml")).load();
+        }catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+        return giveBookView;
     }
 
     /**

@@ -7,6 +7,7 @@ import com.kitm.darbas1.Utilities.AlertUtility;
 import com.kitm.darbas1.Utilities.DialogUtility;
 import com.kitm.darbas1.Views.MenuItems;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -28,7 +29,12 @@ public class BooksController implements Initializable {
     public TableColumn col_price;
     public TableColumn col_Author;
     public MenuItem remove;
-    public Button refresh;
+    public TextField filterISBN;
+    public TextField filterAuthor;
+    public TextField filterName;
+    public Button filterButton;
+
+    private FilteredList<Book> filteredBooks;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -38,7 +44,9 @@ public class BooksController implements Initializable {
         loadBookData();
         setRowFactoryForAuthorsTable();
 
-        refresh.setOnAction(event -> loadBookData());
+//        filteredBooks = new FilteredList<>(Model.getInstance().getBooks());
+//        books_table.setItems(filteredBooks);
+        filterButton.setOnAction(event-> applyFilters());
 
         remove.setOnAction(event -> onRemoverBook());
     }
@@ -68,7 +76,9 @@ public class BooksController implements Initializable {
 
     public void loadBookData(){
         ObservableList<Book> books = Model.getInstance().getBooks();
-        books_table.setItems(books);
+
+        filteredBooks = new FilteredList<>(books, p -> true);
+        books_table.setItems(filteredBooks);
     }
 
 
@@ -83,8 +93,9 @@ public class BooksController implements Initializable {
 
         if (confirmed){
             Model.getInstance().deleteBook(selectedBook.getId());
-            ObservableList<Author> books = books_table.getItems();
-            books.remove(selectedBook);
+//            ObservableList<Book> books = books_table.getItems();
+//            books.remove(selectedBook);
+            loadBookData();
             AlertUtility.displayInformation("Knyga pasalinta sekmingai");
         }
     }
@@ -109,6 +120,28 @@ public class BooksController implements Initializable {
         result.ifPresent(updateBook -> {
             Model.getInstance().updateBook(updateBook);
             loadBookData();
+        });
+    }
+
+    private void applyFilters(){
+        String ISBNFilter = filterISBN.getText().toLowerCase();
+        String AuthorFilter = filterAuthor.getText().toLowerCase();
+        String NameFilter = filterName.getText().toLowerCase();
+
+        filteredBooks.setPredicate(book->{
+            if(!ISBNFilter.isEmpty() && !book.getISBN().toLowerCase().contains(ISBNFilter)){
+                return false;
+            }
+
+            if(!AuthorFilter.isEmpty() && !book.getAuthorName().toLowerCase().contains(AuthorFilter)){
+                return false;
+            }
+
+            if(!NameFilter.isEmpty() && !book.getName().toLowerCase().contains(NameFilter)){
+                return false;
+            }
+
+            return true;
         });
     }
 }

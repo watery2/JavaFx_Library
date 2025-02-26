@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.TextField?>
 <AnchorPane prefHeight="700.0" prefWidth="860.0" styleClass="clients_container" stylesheets="@../Styles/authors.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kitm.darbas1.Controllers.BooksController">
    <children>
       <Text layoutX="409.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Knygos" />
@@ -32,6 +33,9 @@
             </ContextMenu>
          </contextMenu>
       </TableView>
-      <Button fx:id="refresh" layoutX="20.0" layoutY="288.0" mnemonicParsing="false" text="Atnaujinti" />
+       <TextField fx:id="filterISBN" layoutX="29.0" layoutY="180.0" promptText="ISBN" />
+       <TextField fx:id="filterAuthor" layoutX="207.0" layoutY="180.0" promptText="Autorius" />
+       <TextField fx:id="filterName" layoutX="386.0" layoutY="180.0" promptText="Pavadinimas" />
+       <Button fx:id="filterButton" layoutX="555.0" layoutY="180.0" mnemonicParsing="false" text="Filtruoti"/>
    </children>
 </AnchorPane>

@@ -213,9 +213,16 @@ public class AuthorsController implements Initializable {
      * Load authors data into table
      */
 
-    private void loadAuthorData(){
+//    private void loadAuthorData(){
+//        ObservableList<Author> authors = Model.getInstance().getAuthors();
+//        authors_table.setItems(authors);
+//    }
+
+        public void loadAuthorData(){
         ObservableList<Author> authors = Model.getInstance().getAuthors();
-        authors_table.setItems(authors);
+
+        filteredAuthors = new FilteredList<>(authors, p -> true);
+        authors_table.setItems(filteredAuthors);
     }
 
     /**
@@ -234,8 +241,9 @@ public class AuthorsController implements Initializable {
 
         if(confirmed){
             Model.getInstance().deleteAuthor(selectedAuthor.getId());
-            ObservableList<Author> authors = authors_table.getItems();
-            authors.remove(selectedAuthor);
+//            ObservableList<Author> authors = authors_table.getItems();
+//            authors.remove(selectedAuthor);
+            loadAuthorData();
             AlertUtility.displayInformation("Autorius pasalintas sekmingai");
         }
     }

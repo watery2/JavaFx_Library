@@ -1,9 +1,7 @@
 package com.kitm.darbas1.Models;
 
 import com.kitm.darbas1.Views.ViewFactory;
-import com.kitm.darbas1.dao.AuthorsDAO;
-import com.kitm.darbas1.dao.BookDAO;
-import com.kitm.darbas1.dao.UserDAO;
+import com.kitm.darbas1.dao.*;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
@@ -17,6 +15,8 @@ public class Model {
     private User currentUser;
     public final AuthorsDAO authorsDAO;
     public final BookDAO booksDAO;
+    public final ReaderDAO readerDAO;
+    public final GiveBookDAO giveBookDAO;
 
     private Model()
     {
@@ -24,6 +24,8 @@ public class Model {
         this.userDAO = new UserDAO(new DatabaseDriver().getConnection());
         this.authorsDAO = new AuthorsDAO(new DatabaseDriver().getConnection());
         this.booksDAO = new BookDAO(new DatabaseDriver().getConnection());
+        this.readerDAO = new ReaderDAO(new DatabaseDriver().getConnection());
+        this.giveBookDAO = new GiveBookDAO(new DatabaseDriver().getConnection());
         this.currentUser = null;
     }
 
@@ -212,6 +214,63 @@ public class Model {
     public ObservableList<Book> getBooks()
     {
         return booksDAO.findAll();
+    }
+
+    public Book getBookByID(int id)
+    {
+        return booksDAO.findById(id);
+    }
+
+
+    // 0 = Not taken, 1 = taken
+    public void setBookTakenStatus(int id, int status)
+    {
+        booksDAO.setTakenStatus(id, status);
+    }
+
+    public void createReader(String fName, String lastName, String email, String city)
+    {
+        readerDAO.create(fName, lastName, email, city);
+    }
+
+    public ObservableList<Reader> getReaders()
+    {
+        return readerDAO.findAll();
+    }
+
+    public void deleteReader(int id)
+    {
+        readerDAO.delete(id);
+    }
+
+    public Reader getReaderById(int id)
+    {
+        return readerDAO.getById(id);
+    }
+
+    public void updateReader(Reader reader)
+    {
+        readerDAO.update(reader);
+    }
+
+    public void giveBook(int bookID, int readerID, LocalDate giveBackDate)
+    {
+        giveBookDAO.create(bookID, readerID, giveBackDate);
+    }
+
+    public void updateBookAccount(BookAcc bookAcc)
+    {
+        giveBookDAO.update(bookAcc);
+    }
+
+    public void deleteBookAccount(int id)
+    {
+        giveBookDAO.delete(id);
+    }
+
+    public ObservableList<BookAcc> findAllBookAccounts()
+    {
+        return giveBookDAO.findAll();
     }
 
 }
